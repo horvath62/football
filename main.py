@@ -16,9 +16,9 @@ for play in PlayList:
 
 time.sleep(3) # Sleep for 3 seconds
 
-PlayListItem = driver.find_element(By.CLASS_NAME, 'PlayListItem').click()
+Collapse = driver.find_element(By.CLASS_NAME, 'AccordianPanel')
 
-time.sleep(3) # Sleep for 3 seconds
+time.sleep(10) # Sleep for 3 seconds
 
 driver.quit()
 
