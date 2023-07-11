@@ -1,18 +1,26 @@
 
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.common.by import By
+import time
 
-DRIVER_PATH = 'c:\chrome'
-#driver = webdriver.Chrome('C:/chrome')
+driver = webdriver.Chrome()
 
-driver = webdriver.Chrome(ChromeDriverManager().install())
-driver.get('https://google.com')
+# driver.get('https://scrapingclub.com/')
+driver.get('https://www.espn.com/college-football/playbyplay/_/gameId/401411092')
 
+'''
+PlayList = driver.find_elements(By.CLASS_NAME, 'PlayListItem')
+for play in PlayList:
+    print(play.text)
+'''
 
+time.sleep(3) # Sleep for 3 seconds
 
+PlayListItem = driver.find_element(By.CLASS_NAME, 'PlayListItem').click()
 
+time.sleep(3) # Sleep for 3 seconds
 
+driver.quit()
 
 '''
 import requests
