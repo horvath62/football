@@ -9,7 +9,7 @@ import time
 driver = webdriver.Chrome()
 
 # driver.get('https://scrapingclub.com/')
-driver.get('https://www.espn.com/college-football/playbyplay/_/gameId/401411092')
+driver.get('https://www.espn.com/college-football/playbyplay/_/gameId/401403989')
 
 '''
 PlayList = driver.find_elements(By.CLASS_NAME, 'PlayListItem')
@@ -19,14 +19,13 @@ for play in PlayList:
 
 time.sleep(3) # Sleep for 3 seconds
 
+# Collapse first drive playlist (because oit deault expanded)
 DriveList = driver.find_elements(By.CLASS_NAME, 'AccordionHeader_Left')
 D1 = driver.find_element(By.CLASS_NAME, 'AccordionHeader')
 D1.click()
 # print("#", D1.text)
 
-
-time.sleep(10) # Sleep for 3 seconds
-
+# Now expand all play lists
 try:
     DriveList = driver.find_elements(By.CLASS_NAME, 'AccordionHeader')
 except NoSuchElementException:
@@ -34,7 +33,7 @@ except NoSuchElementException:
 
 for drive in DriveList:
     pass
-    new_string = ''.join((drive.text).split('\n'))
+    new_string = ', '.join((drive.text).split('\n'))
     print("###",new_string)
     try:
         drive.click()
@@ -42,6 +41,17 @@ for drive in DriveList:
     except NoSuchElementException:
         print("Click Error")
 
+
+try:
+    PlayList = driver.find_elements(By.CLASS_NAME, 'PlayListItem')
+except NoSuchElementException:
+    # ??? exception is not correctly handled ???
+    print("No such element")
+
+for play in PlayList:
+    print(play.text)
+
+time.sleep(10) # Sleep for 3 seconds
 
 driver.quit()
 
