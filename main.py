@@ -22,7 +22,7 @@ time.sleep(3) # Sleep for 3 seconds
 DriveList = driver.find_elements(By.CLASS_NAME, 'AccordionHeader_Left')
 D1 = driver.find_element(By.CLASS_NAME, 'AccordionHeader')
 D1.click()
-print("#", D1.text)
+# print("#", D1.text)
 
 
 time.sleep(10) # Sleep for 3 seconds
@@ -30,7 +30,7 @@ time.sleep(10) # Sleep for 3 seconds
 try:
     DriveList = driver.find_elements(By.CLASS_NAME, 'AccordionHeader')
 except NoSuchElementException:
-    print ("No such element")
+    print("No such element")
 
 for drive in DriveList:
     pass
@@ -38,6 +38,7 @@ for drive in DriveList:
     print("###",new_string)
     try:
         drive.click()
+        time.sleep(1)
     except NoSuchElementException:
         print("Click Error")
 
