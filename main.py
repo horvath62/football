@@ -25,23 +25,30 @@ D1 = driver.find_element(By.CLASS_NAME, 'AccordionHeader')
 D1.click()
 # print("#", D1.text)
 
+# Find all the drives
+DriveList = driver.find_elements(By.CLASS_NAME, 'AccordionPanel Panel')
+
 # Now expand all play lists
-try:
-    DriveList = driver.find_elements(By.CLASS_NAME, 'AccordionHeader')
-except NoSuchElementException:
-    print("No such element")
-
 for drive in DriveList:
-    pass
+    driveHeader = driver.find_element(By.CLASS_NAME, 'AccordionHeader')
+    driveHeader.click()
+    time.sleep(1)
+
+#Now get Headline, description and plays of each drive
+for drive in DriveList:
+    DriveHeadline = drive.find_element(By.CLASS_NAME, 'AccordionHeader_Left_Drives_Headline')
+    DriveDesc = drive.find_element(By.CLASS_NAME, 'AccordionHeader_Left_Drives_Description')
+    new_string = ', '.join((DriveDesc.text).split('\n'))
+    print("###",DriveHeadline.text,"->",new_string)
+    PlayList = drive.find_elements(By.CLASS_NAME, 'PlayListItem')
     new_string = ', '.join((drive.text).split('\n'))
-    print("###",new_string)
-    try:
-        drive.click()
-        time.sleep(1)
-    except NoSuchElementException:
-        print("Click Error")
+    print("##",new_string)
+    for play in PlayList:
+        new_string = ', '.join((play.text).split('\n'))
+        print("#",play.text)
 
 
+'''
 try:
     PlayList = driver.find_elements(By.CLASS_NAME, 'PlayListItem')
 except NoSuchElementException:
@@ -50,6 +57,8 @@ except NoSuchElementException:
 
 for play in PlayList:
     print(play.text)
+'''
+
 
 time.sleep(10) # Sleep for 3 seconds
 
