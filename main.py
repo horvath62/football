@@ -19,25 +19,26 @@ for play in PlayList:
 
 time.sleep(3) # Sleep for 3 seconds
 
-# Collapse first drive playlist (because oit deault expanded)
-DriveList = driver.find_elements(By.CLASS_NAME, 'AccordionHeader_Left')
-D1 = driver.find_element(By.CLASS_NAME, 'AccordionHeader')
+# Collapse first drive playlist (because it default is expanded, remaining playlists are collapsed)
+#DriveFirst = driver.find_element(By.CLASS_NAME, "AccordionHeader")
+DriveFirst = driver.find_element(By.CLASS_NAME, "AccordionPanel.Panel")
+D1 = DriveFirst.find_element(By.CLASS_NAME, 'AccordionHeader__Left')
 D1.click()
 # print("#", D1.text)
 
 # Find all the drives
-DriveList = driver.find_elements(By.CLASS_NAME, 'AccordionPanel Panel')
+DriveList = driver.find_elements(By.CLASS_NAME, 'AccordionPanel.Panel')
 
-# Now expand all play lists
+# Now expand all play lists by clicking the drive header
 for drive in DriveList:
-    driveHeader = driver.find_element(By.CLASS_NAME, 'AccordionHeader')
+    driveHeader = drive.find_element(By.CLASS_NAME, 'AccordionHeader__Left')
     driveHeader.click()
     time.sleep(1)
 
-#Now get Headline, description and plays of each drive
+# Now get Headline, description and plays of each drive
 for drive in DriveList:
-    DriveHeadline = drive.find_element(By.CLASS_NAME, 'AccordionHeader_Left_Drives_Headline')
-    DriveDesc = drive.find_element(By.CLASS_NAME, 'AccordionHeader_Left_Drives_Description')
+    DriveHeadline = drive.find_element(By.CLASS_NAME, 'AccordionHeader__Left__Drives__Headline')
+    DriveDesc = drive.find_element(By.CLASS_NAME, 'AccordionHeader__Left__Drives__Description')
     new_string = ', '.join((DriveDesc.text).split('\n'))
     print("###",DriveHeadline.text,"->",new_string)
     PlayList = drive.find_elements(By.CLASS_NAME, 'PlayListItem')
