@@ -1,3 +1,3 @@
 from scrape_plays import scrapeplays
 
-scrapeplays(401403989)
+scrapeplays(401403976)

@@ -24,7 +24,9 @@ def scrapeplays(gameID):
     try:
         DriveFirst = driver.find_element(By.CLASS_NAME, "AccordionPanel.Panel")
         D1 = DriveFirst.find_element(By.CLASS_NAME, 'AccordionHeader__Left')
+        R1 = DriveFirst.find_element(By.CLASS_NAME, 'AccordionHeader__Right')
         D1.click()
+        R1.click()
     except NoSuchElementException:
         print("Exception: No Such Element")
         exception = True
@@ -48,6 +50,7 @@ def scrapeplays(gameID):
     for drive in DriveList:
         try:
             driveHeader = drive.find_element(By.CLASS_NAME, 'AccordionHeader__Left')
+            driveScore = drive.find_element(By.CLASS_NAME, 'AccordionHeader__Right')
             driveHeader.click()
         except NoSuchElementException:
             print("Exception: No Such Element")
@@ -57,20 +60,22 @@ def scrapeplays(gameID):
             print("Try increasing sleep time between clicks to allow html page to re-render")
             exception = True
         time.sleep(0.2)
-        print("##", DriveList)
+        print("##", drive.text)
 
     # Now get Headline & description of each drive and the plays of each drive
     for drive in DriveList:
         DriveHeadline = drive.find_element(By.CLASS_NAME, 'AccordionHeader__Left__Drives__Headline')
         DriveDesc = drive.find_element(By.CLASS_NAME, 'AccordionHeader__Left__Drives__Description')
+        DriveScore = drive.find_element(By.CLASS_NAME, 'AccordionHeader__Right')
         new_desc = ', '.join((DriveDesc.text).split('\n'))
-        print("###",DriveHeadline.text,"->",new_desc)
+        new_score = ', '.join((DriveScore.text).split('\n'))
+        print("#",DriveHeadline.text,"->",new_desc,new_score)
         PlayList = drive.find_elements(By.CLASS_NAME, 'PlayListItem')
         new_string = ', '.join((drive.text).split('\n'))
         # print("##",new_string)
         for play in PlayList:
-            new_string = ', '.join((play.text).split('\n'))
-            print("#",play.text)
+            new_play = ' # '.join((play.text).split('\n'))
+            print(">",new_play)
 
     if exception:
         print("EXCEPTION WAS HANDLED:  DATA IS INCOMPLETE")
