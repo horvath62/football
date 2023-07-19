@@ -22,7 +22,7 @@ class scrape:
         driver.get( URL )
 
         # delay to let page load
-        time.sleep(5*wait_time) # Sleep
+        time.sleep(wait_time) # Sleep
 
         # Collapse first drive playlist (because it default is expanded, remaining playlists are collapsed)
         try:
@@ -35,7 +35,7 @@ class scrape:
         except ElementClickInterceptedException:
             print("Exception: Element Click Intercepted")
             exception = True
-        time.sleep(5*wait_time)
+        time.sleep(wait_time)
 
 
         # Find all the "football" drives, put into DriveList
