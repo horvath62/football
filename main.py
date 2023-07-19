@@ -1,3 +1,5 @@
-from scrape_plays import scrapeplays
+from scrape_plays import scrape
 
-scrapeplays(401403976)
+s = scrape()
+exc = s.scrapeplays(401403975, 0.2)
+print("Exception Raised?", exc)
